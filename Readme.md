@@ -10,8 +10,10 @@
   - [Zapret для всех блокировок](#zapret-для-всех-блокировок)
   - [Zapret (Windows)](#zapret-windows)
   - [Zapret, но круче (Windows)](#zapret-но-круче-windows)
+  - [Zapret не менее крутой (Windows)](#zapret-не-менее-крутой-windows)
   - [SpoofDPI (Linux / MacOS)](#spoofdpi-linux--macos)
   - [ByeDPI (Android)](#byedpi-android)
+  - [YouTube через IPv6](#youtube-через-ipv6)
   - [Решение возникших проблем](#решение-возникших-проблем)
     - [GoodByeDPI не работает](#goodbyedpi-не-работает)
     - [Скрипты Zapret не являются исполняемыми](#скрипты-zapret-не-являются-исполняемыми)
@@ -150,7 +152,7 @@
 - do you want to auto download ip/host list - Скачиваем сам hostlist
 - your choice - Рекомендую оставить по умолчанию
 
-1. Далее вставим ссылки из файла [blacklist.txt](https://github.com/0x201/YouTube/blob/main/blacklist.txt)
+1. Далее вставим ссылки из файла [blacklist.txt](./blacklist.txt)
 В файл zapret-hosts-user.txt
 ```nano /opt/zapret/ipser/zapret-hosts-user.txt```
 Сохраняемся и выходим.
@@ -206,6 +208,19 @@
 - ```discord.bat``` - для сервиса Discord
 - ```service_install``` - устанавливает службу в Windows **(не рекомендую)**
 
+## Zapret не менее крутой (Windows)
+Это тоже сборка Zapret с готовыми конфигурациями. У меня заработало без каких либо проблем.
+
+> [!WARNING]
+> Форум заблокирован на территории РФ, а потому зайти возможно либо с помощью VPN/Прокси, либо с помощью обхода DPI.
+
+1. Скачиваем [программу](https://ntc.party/t/%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-ytdisbystro-%D0%BD%D0%B0-%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B5-zapret-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B8-%D0%BE%D0%B1%D1%81%D1%83%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BD%D0%B5-%D0%BF%D0%B8%D1%88%D0%B8%D1%82%D0%B5-%D1%81%D1%8E%D0%B4%D0%B0-%D0%BD%D0%B8-%D0%BF%D1%80%D0%BE-%D0%BA%D0%B0%D0%BA%D0%B8%D0%B5-%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B8-%D0%BD%D0%B5-%D0%BF%D1%80%D0%BE%D1%87%D0%B8%D1%82%D0%B0%D0%B2-1-%D0%B9-%D0%BF%D0%BE%D1%81%D1%82-%D1%82%D0%B5%D0%BC%D1%8B/12420), если же нет возможности зайти на форум, то я выложу архив с программой в данном [репозитории](./YTDisBystro.zip).
+2. Распаковываем архив в удобное для нас место.
+3. И запустим программу файлом ```.cmd```:
+- ```preset_russia.cmd``` - обычный пресет для обхода блокировок
+- ```preset_russia_noattl.cmd``` - пресет с установленным [TTL](https://ru.wikipedia.org/wiki/Time_to_live)
+- ```preset_russia_zl.cmd``` - не особо понял чем отличается, но по словам автора *"Или вариант _zl если хотите настройки как в zapret launcher."*
+
 ## SpoofDPI (Linux / MacOS)
 1. Скачиваем [SpoofDPI](https://github.com/xvzc/SpoofDPI) с помощью комманд:
    - MacOS Intel
@@ -250,6 +265,13 @@
 6. После всех мохинаций выходим из настроек программы и нажимаем кнопку Connect / Подключиться
 
 Или же можно вписать параметры в консоли. Найти их можно в [ссылках](#источники--готовые-конфиги).
+
+## YouTube через IPv6
+Также стоит упомянуть такой способ, как просмотр видео через IPv6. В РФ если вы используете мобильную сеть, то вы являетесь пользователем IPv6, а DPI в свою очередь не особо умеет в данную версию интернет протокола *(IPv6 - Internet Protocol version 6)*. Важно уточнить, хоть и DPI не сильно ладит с данным протоколом, сайты заблокированные в РФ останутся таковыми.
+
+> [!NOTE]
+> Кстати, можно упомянуть статистику использования IPv6 в разных странах (по версии Google). Мы увидим, что Россия почти впереди планеты всей с **60%**.
+> <a href="https://www.google.com/intl/ru/ipv6/statistics.html#tab=per-country-ipv6-adoption"><img src="ipv6.png" align="center"></a>
 
 ## Решение возникших проблем
 В данном разделе вы скорее всего найдёте решение вашей проблемы.
@@ -325,5 +347,6 @@
 Список заблокированных сайтов позаимствовал от:
  - [GoodByeDPI](https://github.com/ValdikSS/GoodbyeDPI/releases)
  - [GitHub Issue Zapret](https://github.com/bol-van/zapret/discussions/200#discussioncomment-10956108)
+ - [YTDisBystro](https://ntc.party/t/%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-ytdisbystro-%D0%BD%D0%B0-%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B5-zapret-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B8-%D0%BE%D0%B1%D1%81%D1%83%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BD%D0%B5-%D0%BF%D0%B8%D1%88%D0%B8%D1%82%D0%B5-%D1%81%D1%8E%D0%B4%D0%B0-%D0%BD%D0%B8-%D0%BF%D1%80%D0%BE-%D0%BA%D0%B0%D0%BA%D0%B8%D0%B5-%D0%BE%D1%88%D0%B8%D0%B1%D0%BA%D0%B8-%D0%BD%D0%B5-%D0%BF%D1%80%D0%BE%D1%87%D0%B8%D1%82%D0%B0%D0%B2-1-%D0%B9-%D0%BF%D0%BE%D1%81%D1%82-%D1%82%D0%B5%D0%BC%D1%8B/12420)
 
 **Автор: 0x201 :3**
