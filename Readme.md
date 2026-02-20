@@ -5,52 +5,18 @@
 > В работу DPI погружать не буду, а сразу перейду к делу. Если есть желание узнать об этой технологии, вам [сюда](https://web.archive.org/web/20230331233644/https://habr.com/ru/post/335436/), или [туда](https://ru.wikipedia.org/wiki/Deep_packet_inspection), или [here](https://geneva.cs.umd.edu/papers/geneva_ccs19.pdf).
 
 - [Как обойти DPI](#как-обойти-dpi)
-  - [GoodByeDPI (Windows)](#goodbyedpi-windows)
   - [Zapret для YouTube (Linux / Роутеры)](#zapret-для-youtube-linux--роутеры)
   - [Zapret для всех блокировок](#zapret-для-всех-блокировок)
   - [Zapret (Windows)](#zapret-windows)
-  - [Zapret, но круче (Windows)](#zapret-но-круче-windows)
-  - [Zapret не менее крутой (Windows)](#zapret-не-менее-крутой-windows)
-  - [SpoofDPI (Linux / MacOS)](#spoofdpi-linux--macos)
-  - [ByeDPI (Android)](#byedpi-android)
-  - [YouTube через IPv6](#youtube-через-ipv6)
+  - [Zapret-discord-youtube, пока лучший на Windows](#zapret-discord-youtube-пока-лучший-на-windows)
+  - [ByeByeDPI (Android)](#byebyedpi-android)
   - [Решение возникших проблем](#решение-возникших-проблем)
-    - [GoodByeDPI не работает](#goodbyedpi-не-работает)
     - [Скрипты Zapret не являются исполняемыми](#скрипты-zapret-не-являются-исполняемыми)
-    - [Нет Bash](#нет-bash)
+    - [Переустановка Bash](#переустановка-bash)
     - [Zapret не запущен](#zapret-не-запущен)
-    - [ByeDPI жрет много батареи](#byedpi-жрет-много-батареи)
+    - [ByeDPI/ByeByeDPI жрет много батареи](#byedpibyebyedpi-жрет-много-батареи)
   - [Источники / Готовые конфиги](#источники--готовые-конфиги)
   - [Поддержка](#поддержка)
-
-## GoodByeDPI (Windows)
-1. Скачайте архив с [GoodByeDPI](https://github.com/ValdikSS/GoodbyeDPI/releases)
-2. Распаковываем.
-3. Заходим в папку с программой и редактируем файл:
-  
-   - Если вам нужен YouTube рекомендую пользоваться:
-    ```
-    1_russia_blacklist_YOUTUBE.cmd
-    1_russia_blacklist_YOUTUBE_ALT.cmd
-    ```
-   - Ну а если нужна раблокировка всех сайтов, но необязательно YouTube, то открываем:
-    `1_russia_blacklist.cmd`
-
-   - Не рекомендуется использовать скрипты :
-     ```
-     service_install_russia_blacklist.cmd
-     service_install_russia_blacklist_dnsredir.cmd
-     service_install_russia_blacklist_YOUTUBE.cmd
-     service_install_russia_blacklist_YOUTUBE_ALT.cmd
-     ```
-
-Так как они устанавливают службу в Windows, а потом их сложно будет выкорчевывать из системы. В добавок могут не открываться сайты _(якобы нет интернета)_, а также есть вероятность срабатывания античит системы в игре на GoodByeDPI. 
-    
-
-4. После строчки `goodbyedpi.exe` вместо `-9` вставим цифру в соответствии от вашего [провайдера](https://github.com/ValdikSS/GoodbyeDPI/issues/378).
-5. Ну а после `--fake-from-hex` всталяем рандомный hex, с помощью [hex генератора](https://www.browserling.com/tools/random-hex). В графе `How many digits?` вводим **120** и более, а после нажимаем `Generate Hex`, копируем и вставляем в файл.
-6. Сохраняем и выходим.
-7. И запускаем нужный нам скрипт.
 
 ## Zapret для YouTube (Linux / Роутеры)
 1. Необходимо скачать программу и необходимые компоненты. Сделаем мы это с помощью Git. 
@@ -98,9 +64,6 @@
 4. Далее запускаем скрипты установки всех нужных компонентов
    `./install_bin.sh`
    `./install_prereq.sh`
-
-> [!NOTE]
-> Если нужна разблокировка других сервисов, то смотрим на этот [пункт](#zapret-для-всех-блокировок).
 
 5. Запускаем скрипт установки службы
    `./install_easy.sh`
@@ -197,95 +160,33 @@
 > [!WARNING]
 > Изначальная конфигурация не будет работать, нужно её составить самому. В этом помогут [неравнодушные люди с форумов и документация](#источники--готовые-конфиги).
 
-## Zapret, но круче (Windows)
+## Zapret-discord-youtube, пока лучший на Windows
 Тот же Zapret, но с готовыми конфигами.
 
 1. Скачиваем [программу](https://github.com/Flowseal/zapret-discord-youtube/releases) с репозитория.
-2. Распаковываем и запускаем `.cmd` файл в зависимости от того, что вам необходимо:
-- `general.bat` - для всех блокировок
-- `general (ALT)` - альтернативные варианты
-- `general (МГТС)` - для провайдера МГТС
-- `discord.bat` - для сервиса Discord
-- `service_install` - устанавливает службу в Windows
-
-## Zapret не менее крутой (Windows)
-Это тоже сборка Zapret с готовыми конфигурациями.
-
+2. Распаковываем и запускаем `service.cmd` файл.
+3. В открывшемся меню выбираем `10. Run Diagnostics`. Данная функция проверит вашу систему на наличие препятствий на пути обхода блокировок. **Ликвидируем** все преграды и переходим к следующему пункту.
+4. После прохождения диагностики запускаем `11. Run Tests`. Выбираем пункт который вам нужен:
+   - `1. Standart tests` - проверка доступа заблокированного ресурса _(Youtube, Google, Cloudflare(как сайт, а не груда айпишников))_.
+   - `2. DPI Checket` - проверка доступа к CDN (Content Delivery Network), это всякие: Cloudflare _(На нём интернет держится)_, Fastly _(Steam, и др.)_, Hetzner _(Arch Linux репозитории)_ и куча других.
+5. Далее рекомендую выбрать пункт `All configs`, так как вы пока не знаете какие конфиги работают лучше, а потому придётся потратить время на проверку заведомо плохих. Однако это гарантирует лучший результат.
+6. После проверки наблюдаем итоги, по ним ориентируемся при выборе конфига. В меню программы нажимаем `1. Install Service`, выбираем конфигурацию и всё.
 > [!WARNING]
-> Форум заблокирован на территории РФ, а потому зайти возможно либо с помощью VPN/Прокси, либо обходом DPI.
+    По всем остальным вопросам рекомендую читать официальную документацию, потому что здесь повторяться не хочу, да и я не автор оригинальной программы, а потому не знаю многих тонкостей.
 
-1. Скачиваем [программу](https://ntc.party/t/ytdisbystro-%D0%B0%D1%80%D1%85%D0%B8%D0%B2-%D0%B2%D1%81%D0%B5%D1%85-%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D0%B9/12582), если же нет возможности зайти на форум, то я выложу архив с программой в данном [репозитории](./YTDisBystro.zip).
-2. Распаковываем архив в удобное для нас место.
-3. И запустим программу файлом `.cmd`:
-- `preset_russia.cmd` - обычный пресет для обхода блокировок
-- `preset_russia_noattl.cmd` - пресет с установленным [TTL](https://ru.wikipedia.org/wiki/Time_to_live)
-- `preset_russia_zl.cmd` - не особо понял чем отличается, но по словам автора: "*Или вариант _zl если хотите настройки как в zapret launcher.*".
-
-## SpoofDPI (Linux / MacOS)
-> [!CAUTION]
-> Разработчик временно перестал поддерживать программу. Если она не работает, то дело в долгих выходах обновлений.
-
-1. Скачиваем [SpoofDPI](https://github.com/xvzc/SpoofDPI) с помощью комманд:
-   - MacOS Intel
-   `curl -fsSL https://raw.githubusercontent.com/xvzc/SpoofDPI/main/install.sh | bash -s darwin-amd64`
-   - MacOS Apple Silicon
-   `curl -fsSL https://raw.githubusercontent.com/xvzc/SpoofDPI/main/install.sh | bash -s darwin-arm64`
-   - Linux amd64 (x86/x64)
-   `curl -fsSL https://raw.githubusercontent.com/xvzc/SpoofDPI/main/install.sh | bash -s linux-amd64`
-   - Linux arm
-   `curl -fsSL https://raw.githubusercontent.com/xvzc/SpoofDPI/main/install.sh | bash -s linux-arm`
-   - Linux arm64
-   `curl -fsSL https://raw.githubusercontent.com/xvzc/SpoofDPI/main/install.sh | bash -s linux-arm64`
-2. Далее в зависимости от того какая у вас оболочка терминал Bash или Zsh, редактируем файл 
-   - Zsh - `nano ~/.zshrc`
-   - Bash - `nano ~/.bashrc`
-
-Проверить какая у вас стоит оболочка, можно с помощью комманды `echo $SHELL`
-
-3. В конфиге оболочки вставляем строку 
-  `export PATH=$PATH:~/.spoofdpi/bin`
-
-Чтобы вводя `spoofdpi` у вас открывалась эта программа. Мы создали некоторую ассоциацию с ней.
-
-4. Необходимо перезапустить терминал, **а лучше перезагрузить компьютер**.
-5. Теперь запускаем программу (можем также добавить пару [параметров](#источники--готовые-конфиги))
-   ```spoofdpi```
-
-6. Программа запущена, но она не будет работать, т.к. мы должны запустить браузер с параметрами прокси на loopback
-   `google-chrome --proxy-server="http://127.0.0.1:8080"`
-
-Вместо `google-chrome` вводим название своего браузера.
-
-## ByeDPI (Android)
-1. Скачиваем программу с официального [репозитория](https://github.com/dovecoteescapee/ByeDPIAndroid/releases).
-> [!TIP] 
-> Также можно скачать продвинутую версию [ByeByeDPI](https://github.com/romanvht/ByeDPIAndroid/releases).
+## ByeByeDPI (Android)
+1. Скачиваем программу с официального [репозитория](https://github.com/romanvht/ByeByeDPI/releases).
 2. Устанавливаем и запускаем.
-3. Сразу не подключаемся, а заходим в настройки с помощью шестерёнки в правом верхнем углу.
-4. **(Необязательно, т.к. сервера Google медленее (либо и их замедляют))** В графе _DNS_ вводим `8.8.8.8` вместо `1.1.1.1` (то есть вводим DNS Google вместо Cloudflare)
-5. Далее выбираем пункт _UI editor_.
-6. Тут уже можно поиграться с настройками и выявить стратегию обхода блокировок.
-7. После всех мохинаций выходим из настроек программы и нажимаем кнопку _Connect / Подключиться_
+3. Сразу не подключаемся, а заходим в настройки.
+4. Далее выбираем пункт `Подбор стратегий (Beta)`.
+5. Слева сверху есть шестерёнка (настройки подбора), можно там поколодовать с тем, что именно будем проверять, как и зачем. Выберите что вам необходимо и запускайте проверку, она обычно занимает 10-15 минут.
+6. После перед нами предстаёт список стратегий от лучше к худшей, выбираем, которая по запросам превзошла всех _(то есть 150/150 или какая у вас первая в списке)_.
+7. Выходим в главное меню нажимаем кнопку подключения и проверяем, работает - отлично, нет - берём другую стратегию.
 
-Или же можно вписать параметры в консоли. Найти их можно в [ссылках](#источники--готовые-конфиги).
-
-## YouTube через IPv6
-Также стоит упомянуть такой способ, как просмотр видео через IPv6. В РФ если вы используете мобильную сеть, то вы являетесь пользователем IPv6, а DPI в свою очередь не особо умеет в данную версию интернет протокола _(IPv6 - Internet Protocol version 6)_. Важно уточнить, хоть и DPI не сильно ладит с данным протоколом, сайты заблокированные в РФ останутся таковыми.
-
-> [!NOTE]
-> Кстати, можно упомянуть статистику использования IPv6 в разных странах (по версии Google). Мы увидим, что Россия почти впереди планеты всей с **60%**.
-> <a href="https://www.google.com/intl/ru/ipv6/statistics.html#tab=per-country-ipv6-adoption"><img src="ipv6.png" align="center"></a>
+Далее можно на свой вкус и цвет настроить программу, например поставить белые или чёрные списки прокисируемых приложений, но тут уже ваше решение.
 
 ## Решение возникших проблем
 В данном разделе вы скорее всего найдёте решение вашей проблемы.
-
-### GoodByeDPI не работает
-У GoodByeDPI большинство конфигураций пришли в негодность. Тут выходов немного:
-
-- [Собрать программу](https://github.com/ValdikSS/GoodbyeDPI?tab=readme-ov-file#how-to-build-from-source) из исходного кода, дабы была возможность пользоваться [новыми параметрами](https://github.com/ValdikSS/GoodbyeDPI/commit/810aef6aedf2f14f25e5726736c0baa635c18eb0).
-- Поискать рабочие [конфигурации](#источники--готовые-конфиги).
-- Можно перейти на аналоги по типу: **Zapret**, SpoofDpi
-- Ну или VPN. Тут уже ищите сами \:)
 
 ### Скрипты Zapret не являются исполняемыми
 Для того чтобы дать скриптам права на исполнение вводим комманду:
@@ -294,7 +195,7 @@
 Если нужно наделить других пользователей полномочиями запускать скрипт, то вводим следующее:
 `chmod ugo+x "путь до скрипта"`
 
-### Нет Bash
+### Переустановка Bash
 - Debian / Ubuntu / Debian подобные:
   `sudo apt-get install bash`
 
@@ -331,7 +232,7 @@
 
 Если же такой службы нет, то переходим к [пункту](#zapret-для-youtube-linux--роутеры) 5 и запускаем скрипт, вчитываясь в логи. Так можно найти ошибку.
 
-### ByeDPI жрет много батареи
+### ByeDPI/ByeByeDPI жрет много батареи
 Решить это почти никак, т.к. по сути программа висит в фоне и весь ваш траффик пропускает через себя, модифицируя его. Но пару действий можно предпринять:
 
 - Можно включить оптимизацию батареи для данного приложения 
@@ -346,16 +247,13 @@
 > NTC является заблокированным сайтом, как и ветка с ByeDPI на 4PDA **(ТОЛЬКО VPN ИЛИ ПРОКСИ)**. Зайти можно либо с обходом блокировок (DPI), либо с VPN, либо с прокси.
 
 Ссылки на готовые конфиги:
-- ByeDPI - [4PDA](https://4pda.to/forum/index.php?showtopic=1092092), [GitHub Issue](https://github.com/dovecoteescapee/ByeDPIAndroid/discussions/64), [NTC](https://ntc.party/t/byedpi-for-android-%D0%BE%D0%B1%D1%81%D1%83%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5/9075)
-- GoodByeDPI - [NTC скрипт для нахождения стратегии](https://ntc.party/t/goodcheck-%D0%B1%D0%BB%D0%BE%D0%BA%D1%87%D0%B5%D0%BA-%D1%81%D0%BA%D1%80%D0%B8%D0%BF%D1%82-%D0%B4%D0%BB%D1%8F-goodbyedpi-zapret-byedpi/10880), [GitHub Issue](https://github.com/ValdikSS/GoodbyeDPI/issues/378)
+- ByeDPI/ByeByeDPI- [4PDA](https://4pda.to/forum/index.php?showtopic=1092092), [GitHub Issue](https://github.com/dovecoteescapee/ByeDPIAndroid/discussions/64), [NTC](https://ntc.party/t/byedpi-for-android-%D0%BE%D0%B1%D1%81%D1%83%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5/9075)
 - Zapret - [GitHub Issue](https://github.com/bol-van/zapret/discussions/200), [NTC](https://ntc.party/t/zapret-%D0%BE%D0%B1%D1%81%D1%83%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5/726)
-- SpoofDPI - [GitHub параметры](https://github.com/xvzc/SpoofDPI?tab=readme-ov-file#usage)
 
-Список заблокированных сайтов позаимствовал от:
- - [GoodByeDPI](https://github.com/ValdikSS/GoodbyeDPI/releases)
+Списки заблокированных сайтов можете найти здесь:
  - [GitHub Issue Zapret](https://github.com/bol-van/zapret/discussions/200#discussioncomment-10956108)
- - [YTDisBystro](https://ntc.party/t/ytdisbystro-%D0%B0%D1%80%D1%85%D0%B8%D0%B2-%D0%B2%D1%81%D0%B5%D1%85-%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D0%B9/12582)
+ - [IPSET by V3nilla](https://github.com/V3nilla/IPSets-For-Bypass-in-Russia)
 
 ## Поддержка
-Если вы хотите поддержать автора, то поставьте :star: _(в левом верхнем углу)_.
+Если вы хотите поддержать автора, то поставьте :star: _(в левом верхнем углу)_. И, пожалуйста, старайтесь своими действиями помочь сделать этот мир лучше и **свободнее**.
 **Автор: 0x201 :3**
